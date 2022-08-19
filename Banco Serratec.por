@@ -185,7 +185,15 @@ programa
 				confirmacao = txt.caixa_alta(confirmacao)
 
 				se(confirmacao == "S") {
-					se (saque > saldo[id]) {
+					se(saque <= 0) {
+                              ul.aguarde(2000)
+                         	limpa()
+                         	escreva("valor de saque inválido")
+                         	escreva("\nSaldo da conta: R$ ", saldo[id])
+                            	ul.aguarde(2000)
+                            	limpa()
+                            	menuLogado()
+                         }senao se(saque > saldo[id]) {
 						escreva("\nValor na conta não disponivel")
 						escreva("\nSaldo da conta: R$ ", saldo[id])
 						ul.aguarde(2000)
@@ -247,7 +255,16 @@ programa
 				confirmacao = txt.caixa_alta(confirmacao)
 
 				se(confirmacao == "S") {
+                         se(deposito <= 0) {
+                         	ul.aguarde(2000)
+                         	limpa()
+                         	escreva("valor de depósito inválido")
+                         	ul.aguarde(2000)
+                         	limpa()
+                         	menuLogado()
+                         }senao{
 					saldo[id] = deposito + saldo[id]
+                         }
 					historico[controleHistorico] = ("Deposito de R$ "+ deposito)
 					controleHistorico++
 					ul.aguarde(3000)
