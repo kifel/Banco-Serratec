@@ -84,7 +84,8 @@ programa
 		//declarando variaveis
 		cadeia user, senha
 		inteiro controle = 0 //variavel auxiliar para preencher apenas um lugar por vez no cadastro
-			
+		logico cad = falso	
+		
 		limpa() //limpa tela
 
 		escreva("Digite o seu usuario: ")
@@ -92,11 +93,14 @@ programa
 
 		para(inteiro i = 0; i < ul.numero_linhas(users); i++) { //laço de repedição que passa por todas as linhas
 			para(inteiro j = 0; j < ul.numero_colunas(users); j++) { //laço de repedição que passa por todas as colunas
-				se(users[i][j] == user) {
-					escreva("Erro, usuario já cadastrado, tente novamente\n\n")
-					controle++
-					ul.aguarde(3000)
-					limpa()
+				se(users[i][0] == user) {
+					se(cad == falso) {
+						escreva("Erro, usuario já cadastrado, tente novamente\n\n")
+						controle++
+						ul.aguarde(3000)
+						limpa()
+						cad = verdadeiro
+					}
 				}senao {
 					se (controle == 0) { //Verifica se ainda não foi feito o cadastro
 						
@@ -110,7 +114,8 @@ programa
 							ul.aguarde(3000)
 							limpa()
 							controle++ //Variavel de controle para so fazer um cadastro por vez
-							quantCadastro++		
+							quantCadastro++
+							cad = verdadeiro		
 						}
 					}
 				}
