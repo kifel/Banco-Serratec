@@ -251,10 +251,15 @@ programa
 			caso 4:
 				limpa()
 				escreva("Historico: \n")
-				para(inteiro i = 0; i < controleHistorico; i++) {
-					escreva(historico[i], "\n")	
+				se(controleHistorico == 0) {
+					escreva("ainda nao foi feito movimentações")
+				}senao {
+					para(inteiro i = 0; i < controleHistorico; i++) {
+						escreva(historico[i], "\n")	
+					}	
 				}
 				ul.aguarde(3000)
+				limpa()
 				menuLogado()
 				
 			pare
@@ -263,6 +268,7 @@ programa
 				escreva("Saindo da conta\n")
 				ul.aguarde(2000)
 				limpa()
+				controleHistorico = 0
 				menu()
 			pare
 			caso contrario:
@@ -271,8 +277,7 @@ programa
 				ul.aguarde(2000)
 				menuLogado()
 			pare
-		}
-		
+		}		
 	}
 }
 /* $$$ Portugol Studio $$$ 
@@ -280,7 +285,7 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 7308; 
+ * @POSICAO-CURSOR = 7232; 
  * @PONTOS-DE-PARADA = ;
  * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
