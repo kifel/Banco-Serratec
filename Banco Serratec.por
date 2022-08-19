@@ -1,9 +1,11 @@
 programa
 {
 	inclua biblioteca Util --> ul
+	inclua biblioteca Texto --> txt
 	//Iniciando a variavel global, do usuario, contendo login, senha e saldo
 	real saldo[10] = {1000.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
-	inteiro id
+	inteiro id, controleHistorico = 0
+	cadeia historico[10]
 	cadeia users[10][2] = 
 	{
 		{"Admim", "Admin"},
@@ -129,14 +131,16 @@ programa
 		}
 		se (controle == 0) { // se o login nao foi efetuado mostrar a mensagem de erro
 			limpa() //limpa a tela
-			escreva("Usuario ou senha errado, tente novamente")
+			escreva("Usuario ou senha errado, tente novamente\n")
 			ul.aguarde(3000)
-			login() //Chama o login novamente
+			limpa() //limpa a tela
+			menu() //Chama o login novamente
 		}
 	}
 
 	funcao vazio menuLogado() { // Menu de opçoes para 
 
+		cadeia confirmacao
 		inteiro opcao
 		real deposito, saque
 		
@@ -144,7 +148,8 @@ programa
 		escreva("\n*           1-Saque           *")
 		escreva("\n*           2-Saldo           *")
 		escreva("\n*           3-Deposito        *")
-		escreva("\n*           4-Sair            *\n")
+		escreva("\n*           4-Historico       *")
+		escreva("\n*           5-Sair            *\n")
 		linhaMenu()
 		escreva("\n=> ")
 		leia(opcao)
@@ -156,15 +161,34 @@ programa
 				escreva("Digite o valor que deseja sacar:")
 				escreva("\n=> R$")
 				leia(saque)
-				se (saque > saldo[id]) {
-					escreva("\nValor na conta não disponivel")
-					escreva("\nSaldo da conta: R$", saldo[id])
+				escreva("\n\nDeseja confirmar a operação: (S/N)")
+				escreva("\n=> ")
+				leia(confirmacao)
+				confirmacao = txt.caixa_alta(confirmacao)
+
+				se(confirmacao == "S") {
+					se (saque > saldo[id]) {
+						escreva("\nValor na conta não disponivel")
+						escreva("\nSaldo da conta: R$", saldo[id])
+						ul.aguarde(2000)
+						limpa()
+						menuLogado()
+					}senao {
+						escreva("\nSaque efetuado com sucesso\n")
+						saldo[id] = saldo[id] - saque
+						historico[controleHistorico] = ("Saque de R$"+ saque)
+						controleHistorico++
+						ul.aguarde(2000)
+						limpa()
+						menuLogado()
+					}
+				}senao se (confirmacao == "N") {
+					escreva("\n\nVoltando....")
 					ul.aguarde(2000)
 					limpa()
 					menuLogado()
 				}senao {
-					escreva("\nSaque efetuado com sucesso\n")
-					saldo[id] = saldo[id] - saque
+					escreva("\n\nErro, opção invalida\n\n")
 					ul.aguarde(2000)
 					limpa()
 					menuLogado()
@@ -173,27 +197,72 @@ programa
 			pare
 			caso 2:
 				limpa()
-				escreva("Saldo da conta: R$", saldo[id])
-				ul.aguarde(3000)
-				limpa()
-				menuLogado()
+				escreva("\n\nDeseja confirmar a operação: (S/N)")
+				escreva("\n=> ")
+				leia(confirmacao)
+				confirmacao = txt.caixa_alta(confirmacao)
+				se(confirmacao == "S") {
+					escreva("Saldo da conta: R$", saldo[id])
+					ul.aguarde(3000)
+					limpa()
+					menuLogado()
+				}senao se (confirmacao == "N") {
+					escreva("\n\nVoltando....")
+					ul.aguarde(2000)
+					limpa()
+					menuLogado()
+				}senao {
+					escreva("\n\nErro, opção invalida\n\n")
+					ul.aguarde(2000)
+					limpa()
+					menuLogado()
+				}
 			pare
 			caso 3:
 				limpa()
 				escreva("Digite o valor que deseja depositar na conta\n")
 				escreva("\n=> R$")
 				leia(deposito)
+				escreva("\n\nDeseja confirmar a operação: (S/N)")
+				escreva("\n=> ")
+				leia(confirmacao)
+				confirmacao = txt.caixa_alta(confirmacao)
 
-				saldo[id] = deposito + saldo[id]
-				ul.aguarde(3000)
-				limpa()
-				menuLogado()
+				se(confirmacao == "S") {
+					saldo[id] = deposito + saldo[id]
+					historico[controleHistorico] = ("Deposito de R$"+ deposito)
+					controleHistorico++
+					ul.aguarde(3000)
+					limpa()
+					menuLogado()
+				}senao se (confirmacao == "N") {
+					escreva("\n\nVoltando....")
+					ul.aguarde(2000)
+					limpa()
+					menuLogado()
+				}senao {
+					escreva("\n\nErro, opção invalida\n\n")
+					ul.aguarde(2000)
+					limpa()
+					menuLogado()
+				}
 				
 			pare
 			caso 4:
 				limpa()
+				escreva("Historico: \n")
+				para(inteiro i = 0; i < controleHistorico; i++) {
+					escreva(historico[i], "\n")	
+				}
+				ul.aguarde(3000)
+				menuLogado()
+				
+			pare
+			caso 5:
+				limpa()
 				escreva("Saindo da conta\n")
 				ul.aguarde(2000)
+				limpa()
 				menu()
 			pare
 			caso contrario:
@@ -211,9 +280,9 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 4840; 
+ * @POSICAO-CURSOR = 7308; 
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = {saldo, 5, 7, 5}-{id, 6, 9, 2}-{users, 7, 8, 5};
+ * @SIMBOLOS-INSPECIONADOS = ;
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
