@@ -4,7 +4,7 @@ programa
 	inclua biblioteca Texto --> txt
 	//Iniciando a variavel global, do usuario, contendo login, senha e saldo
 	real saldo[10] = {1000.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
-	inteiro id, controleHistorico = 0
+	inteiro id, controleHistorico = 0, quantCadastro = 1
 	cadeia historico[10]
 	cadeia users[10][2] = 
 	{
@@ -57,7 +57,14 @@ programa
 				login()
 			pare
 			caso 2: // Cadastro
-				cadastro() // chama função de cadastrar usuario
+				se(quantCadastro < 10) {
+					cadastro() // chama função de cadastrar usuario
+				}senao {
+					escreva("Número maximo de usuarios cadastrados")
+					ul.aguarde(2000)
+					limpa()
+					menu()
+				}	
 			pare
 			caso 3: // Sair do programa
 				limpa() // limpa a tela
@@ -102,7 +109,8 @@ programa
 							escreva("Cadastro efetuado com sucesso, por favor faça o login\n")
 							ul.aguarde(3000)
 							limpa()
-							controle++ //Variavel de controle para so fazer um cadastro por vez			
+							controle++ //Variavel de controle para so fazer um cadastro por vez
+							quantCadastro++		
 						}
 					}
 				}
