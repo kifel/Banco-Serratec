@@ -1,9 +1,9 @@
 programa
 {
-	inclua biblioteca Util --> ul
+	inclua biblioteca Util --> ul
 	inclua biblioteca Texto --> txt
 	//Iniciando a variavel global, do usuario, contendo login, senha e saldo
-	real saldo[10] = {1000.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+	real saldo[10] = {1000.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
 	inteiro id, controleHistorico = 0
 	cadeia historico[10]
 	cadeia users[10][2] = 
@@ -20,7 +20,7 @@ programa
 		{"",""}
 	}
 
-	funcao inicio() //função que da inicio no programa
+	funcao inicio() //função que da inicio no programa
 	{
 		linhaMenu() //chama funçao de imprimir linha
 		escreva("\n* Bem vindo ao BANCO SERRATEC *\n")
@@ -80,20 +80,26 @@ programa
 			
 		limpa() //limpa tela
 
+		escreva("Digite o seu usuario :")
+		leia(user)
+
 		para(inteiro i = 0; i < ul.numero_linhas(users); i++) { //laço de repedição que passa por todas as linhas
 			para(inteiro j = 0; j < ul.numero_colunas(users); j++) { //laço de repedição que passa por todas as colunas
-				se (controle == 0) { //Verifica se ainda não foi feito o cadastro
-					
-					se (users[i][j] == "") { //Verifica os locais ainda nao tem cadastrado usuario na matriz
-					escreva("Digite o seu usuario :")
-					leia(user)
-					users[i][0] = user //Armazena na matriz o usuario na linha i coluna 0
-					escreva("Digite o sua senha :")
-					leia(senha)
-					users[i][1] = senha //Armazena na matriz o usuario na linha i coluna 1
-					limpa()
-					escreva("Cadastro efetuado com sucesso, porfavor faça o login\n")
-					controle++ //Variavel de controle para so fazer um cadastro por vez			
+				se(users[i][j] == user) {
+					escreva("Erro, usuario já cadastrado, tente novamente\n\n")
+					controle++
+				}senao {
+					se (controle == 0) { //Verifica se ainda não foi feito o cadastro
+						
+						se (users[i][j] == "") { //Verifica os locais ainda nao tem cadastrado usuario na matriz
+							users[i][0] = user //Armazena na matriz o usuario na linha i coluna 0
+							escreva("Digite o sua senha :")
+							leia(senha)
+							users[i][1] = senha //Armazena na matriz o usuario na linha i coluna 1
+							limpa()
+							escreva("Cadastro efetuado com sucesso, porfavor faça o login\n")
+							controle++ //Variavel de controle para so fazer um cadastro por vez			
+						}
 					}
 				}
 			}
@@ -285,9 +291,9 @@ programa
  * Esta seção do arquivo guarda informações do Portugol Studio.
  * Você pode apagá-la se estiver utilizando outro editor.
  * 
- * @POSICAO-CURSOR = 7232; 
+ * @POSICAO-CURSOR = 2571; 
  * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = ;
+ * @SIMBOLOS-INSPECIONADOS = {users, 9, 8, 5};
  * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
  * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
  */
