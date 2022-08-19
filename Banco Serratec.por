@@ -66,7 +66,7 @@ programa
 			pare
 			caso contrario: // se opção for invalida ele chama a função menu novamente
 				limpa() //limpa tela
-				escreva("\nOpção Invalida, tente novamente\n")
+				escreva("\nOpção Inválida, tente novamente\n")
 				menu() //chama função menu
 			pare
 		}
@@ -80,7 +80,7 @@ programa
 			
 		limpa() //limpa tela
 
-		escreva("Digite o seu usuario :")
+		escreva("Digite o seu usuario: ")
 		leia(user)
 
 		para(inteiro i = 0; i < ul.numero_linhas(users); i++) { //laço de repedição que passa por todas as linhas
@@ -88,16 +88,20 @@ programa
 				se(users[i][j] == user) {
 					escreva("Erro, usuario já cadastrado, tente novamente\n\n")
 					controle++
+					ul.aguarde(3000)
+					limpa()
 				}senao {
 					se (controle == 0) { //Verifica se ainda não foi feito o cadastro
 						
 						se (users[i][j] == "") { //Verifica os locais ainda nao tem cadastrado usuario na matriz
 							users[i][0] = user //Armazena na matriz o usuario na linha i coluna 0
-							escreva("Digite o sua senha :")
+							escreva("Digite o sua senha: ")
 							leia(senha)
 							users[i][1] = senha //Armazena na matriz o usuario na linha i coluna 1
 							limpa()
-							escreva("Cadastro efetuado com sucesso, porfavor faça o login\n")
+							escreva("Cadastro efetuado com sucesso, por favor faça o login\n")
+							ul.aguarde(3000)
+							limpa()
 							controle++ //Variavel de controle para so fazer um cadastro por vez			
 						}
 					}
@@ -123,8 +127,8 @@ programa
 
 		para(inteiro i = 0; i < ul.numero_linhas(users); i++) { //laço de repedição que passa por todas as linhas
 			para(inteiro j = 0; j < ul.numero_colunas(users); j++) { //laço de repedição que passa por todas as colunas
-				se(controle == 0) { //Verifica o ja foi encontrado o usuario
-					se(user == users[i][j] e senha == users[i][1]) { //verifica o login e senha passados
+				se(controle == 0) { //Verifica o ja foi encontrado o usuario						
+					se(user == users[i][j] e senha == users[i][1] e user != "" e senha != "") { //verifica o login e senha passados
 						escreva("Logado com sucesso!!!!")
 						id = i //Id do usuario para utilizar o vetor de saldo
 						controle++ //Variavel de auxiliar de login
@@ -164,7 +168,7 @@ programa
 			caso 1:
 			
 				limpa()
-				escreva("Digite o valor que deseja sacar:")
+				escreva("Digite o valor que deseja sacar: ")
 				escreva("\n=> R$")
 				leia(saque)
 				escreva("\n\nDeseja confirmar a operação: (S/N)")
@@ -175,14 +179,14 @@ programa
 				se(confirmacao == "S") {
 					se (saque > saldo[id]) {
 						escreva("\nValor na conta não disponivel")
-						escreva("\nSaldo da conta: R$", saldo[id])
+						escreva("\nSaldo da conta: R$ ", saldo[id])
 						ul.aguarde(2000)
 						limpa()
 						menuLogado()
 					}senao {
 						escreva("\nSaque efetuado com sucesso\n")
 						saldo[id] = saldo[id] - saque
-						historico[controleHistorico] = ("Saque de R$"+ saque)
+						historico[controleHistorico] = ("Saque de R$ "+ saque)
 						controleHistorico++
 						ul.aguarde(2000)
 						limpa()
@@ -236,7 +240,7 @@ programa
 
 				se(confirmacao == "S") {
 					saldo[id] = deposito + saldo[id]
-					historico[controleHistorico] = ("Deposito de R$"+ deposito)
+					historico[controleHistorico] = ("Deposito de R$ "+ deposito)
 					controleHistorico++
 					ul.aguarde(3000)
 					limpa()
@@ -256,7 +260,7 @@ programa
 			pare
 			caso 4:
 				limpa()
-				escreva("Historico: \n")
+				escreva("Histórico: \n")
 				se(controleHistorico == 0) {
 					escreva("ainda nao foi feito movimentações")
 				}senao {
@@ -279,21 +283,10 @@ programa
 			pare
 			caso contrario:
 				limpa()
-				escreva("Opção invalida, tente novamente \n")
+				escreva("Opção inválida, tente novamente \n")
 				ul.aguarde(2000)
 				menuLogado()
 			pare
 		}		
 	}
 }
-/* $$$ Portugol Studio $$$ 
- * 
- * Esta seção do arquivo guarda informações do Portugol Studio.
- * Você pode apagá-la se estiver utilizando outro editor.
- * 
- * @POSICAO-CURSOR = 2571; 
- * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = {users, 9, 8, 5};
- * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
- * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
- */
