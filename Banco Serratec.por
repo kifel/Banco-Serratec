@@ -42,7 +42,7 @@ programa
 
 	funcao vazio menu() { //função do menu
 		
-		inteiro opcao //variael que vai definir a escolha do usuario
+		caracter opcao //variael que vai definir a escolha do usuario
 		
 		linhaMenu() //chama função de imprimir linha do menu
 		escreva("\n*           1.Login           *")
@@ -53,10 +53,10 @@ programa
 		leia(opcao)
 
 		escolha(opcao) {
-			caso 1: // Login
+			caso '1': // Login
 				login()
 			pare
-			caso 2: // Cadastro
+			caso '2': // Cadastro
 				se(quantCadastro < 10) {
 					cadastro() // chama função de cadastrar usuario
 				}senao {
@@ -66,7 +66,7 @@ programa
 					menu()
 				}	
 			pare
-			caso 3: // Sair do programa
+			caso '3': // Sair do programa
 				limpa() // limpa a tela
 				escreva("Agradecemos por utilizar o Banco Serratec, Até mais !")
 				ul.aguarde(2000) // aguarda 2s antes de finalizar o programa
@@ -74,6 +74,8 @@ programa
 			caso contrario: // se opção for invalida ele chama a função menu novamente
 				limpa() //limpa tela
 				escreva("\nOpção Inválida, tente novamente\n")
+				ul.aguarde(2000)
+				limpa()
 				menu() //chama função menu
 			pare
 		}
@@ -164,7 +166,7 @@ programa
 	funcao vazio menuLogado() { // Menu de opçoes para 
 
 		cadeia confirmacao
-		inteiro opcao
+		caracter opcao
 		real deposito, saque
 		
 		linhaMenu()
@@ -178,7 +180,7 @@ programa
 		leia(opcao)
 
 		escolha(opcao) {
-			caso 1:
+			caso '1':
 			
 				limpa()
 				escreva("Digite o valor que deseja sacar: ")
@@ -226,7 +228,7 @@ programa
 				}
 				
 			pare
-			caso 2:
+			caso '2':
 				limpa()
 				escreva("\n\nDeseja confirmar a operação: (S/N)")
 				escreva("\n=> ")
@@ -249,7 +251,7 @@ programa
 					menuLogado()
 				}
 			pare
-			caso 3:
+			caso '3':
 				limpa()
 				escreva("Digite o valor que deseja depositar na conta\n")
 				escreva("\n=> R$")
@@ -288,7 +290,7 @@ programa
 				}
 				
 			pare
-			caso 4:
+			caso '4':
 				limpa()
 				escreva("Histórico: \n")
 				se(controleHistorico == 0) {
@@ -303,7 +305,7 @@ programa
 				menuLogado()
 				
 			pare
-			caso 5:
+			caso '5':
 				limpa()
 				escreva("Saindo da conta\n")
 				ul.aguarde(2000)
@@ -315,8 +317,21 @@ programa
 				limpa()
 				escreva("Opção inválida, tente novamente \n")
 				ul.aguarde(2000)
+				limpa()
 				menuLogado()
 			pare
 		}		
 	}
 }
+
+/* $$$ Portugol Studio $$$ 
+ * 
+ * Esta seção do arquivo guarda informações do Portugol Studio.
+ * Você pode apagá-la se estiver utilizando outro editor.
+ * 
+ * @POSICAO-CURSOR = 1716; 
+ * @PONTOS-DE-PARADA = ;
+ * @SIMBOLOS-INSPECIONADOS = ;
+ * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
+ * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
+ */
